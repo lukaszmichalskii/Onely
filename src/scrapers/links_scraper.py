@@ -15,7 +15,7 @@ class LinksScraper:
     def scrap_links(self):
         links = []
         for query in self.__queries:
-            for link in search(query, num=self.__settings.searches_nr, stop=self.__settings.searches_nr, pause=2):
+            for link in search(query, tld="co.in", num=self.__settings.searches_nr, stop=self.__settings.searches_nr, pause=2):
                 if self.__settings.searches_web_site_filter in link:
                     links.append(link)
 
