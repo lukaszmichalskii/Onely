@@ -4,4 +4,13 @@ class QueriesSetup:
     """
 
     def __init__(self, prefix: str, keywords: list):
-        pass
+        self.prefix = prefix
+        self.keywords = keywords
+
+    def create_queries(self) -> list:
+        queries = []
+        for word in self.keywords:
+            query = self.prefix + word
+            queries.append(query)
+
+        return queries

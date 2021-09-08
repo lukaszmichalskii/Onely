@@ -10,7 +10,11 @@ class KeywordsHandler:
 
     def __init__(self):
         self.__filepath = self.__get_filepath('keywords.txt')
-        self.keywords = read_file(self.__filepath)
+        self.__keywords = read_file(self.__filepath)
+
+    @property
+    def keywords(self):
+        return self.__keywords
 
     def __get_filepath(self, file_to_open: str):
         files_fd = Path('files/')
