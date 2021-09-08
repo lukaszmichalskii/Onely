@@ -1,7 +1,15 @@
-def read_file(file: str) -> list:
+def read_file(filepath) -> list:
     """
     The function reads the contents of the transferred file
-    :param file: filepath of file with keywords
-    :return: list of keyowrds
+    :param filepath: filepath of file with keywords
+    :return: list of keywords
     """
-    pass
+
+    keywords = []
+    with open(filepath, 'r') as f:
+        for line in f:
+            words = line.split(',')
+            for word in words:
+                keywords.append(word)
+
+    return keywords
