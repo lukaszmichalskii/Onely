@@ -1,4 +1,4 @@
-def read_file(filepath) -> list:
+def read_file(filepath: str) -> list:
     """
     The function reads the contents of the transferred file
     :param filepath: filepath of file with keywords

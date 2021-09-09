@@ -1,6 +1,5 @@
 from googlesearch import search
 from src.queries.queries_handler import QueriesHandler
-from src.settings.settings import Settings
 
 
 class LinksScraper:
@@ -8,15 +7,18 @@ class LinksScraper:
     Class responsible for extract links from search results
     """
 
-    def __init__(self, queries: QueriesHandler):
-        self.__settings = Settings()
+    def __init__(self, queries: QueriesHandler, scrap_links_settings: dict):
+        self.__settings = scrap_links_settings
         self.__queries = queries.queries
 
-    def scrap_links(self):
+    def scrap_links(self) -> list:
         links = []
         for query in self.__queries:
-            for link in search(query, tld="co.in", num=self.__settings.searches_nr, stop=self.__settings.searches_nr, pause=2):
-                if self.__settings.searches_web_site_filter in link:
+            for link in search(query, tld='com', num=self.__settings['links_per_page'],
+                               stop=self.__settings['searches_nr'],
+                               pause=self.__settings['delay']):
+
+                if self.__settings['web_site_filter'] in link:
                     links.append(link)
 
         return links

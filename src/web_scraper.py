@@ -10,21 +10,21 @@ from src.settings.settings import Settings
 
 class WebScraper:
     """
-    The main class responsible for the process of configuring and running tasks.
+    The main class is responsible for the process of setting up and running tasks.
     """
 
     def __init__(self):
-        self.settings = Settings()
+        self.__settings = Settings()
 
         self.__keywords_handler = KeywordsHandler()
-        self.__queries_handler = QueriesHandler(self.__keywords_handler)
-        self.__links_scraper = LinksScraper(self.__queries_handler)
+        self.__queries_handler = QueriesHandler(self.__keywords_handler, self.__settings.query_prefix)
+        self.__links_scraper = LinksScraper(self.__queries_handler, self.__settings.links_scraper_settings)
         self.__links_handler = LinksHandler(self.__links_scraper)
 
         self.__search_results_nr_scraper = SearchResultsNrScraper(self.__keywords_handler, self.__queries_handler,
-                                                                  self.settings.desktop_user_agent)
+                                                                  self.__settings.search_results_scraper_settings)
         self.__search_results_nr_handler = SearchResultsNrHandler(self.__search_results_nr_scraper)
 
     def run(self):
-        csv_save_links(self.settings.links_file, self.__links_handler.links)
-        csv_save_results_nr(self.settings.results_file, self.__search_results_nr_handler.search_results)
+        csv_save_links(self.__settings.links_file, self.__links_handler.links)
+        csv_save_results_nr(self.__settings.results_file, self.__search_results_nr_handler.search_results)
